@@ -3,7 +3,6 @@ import urllib2
 import json
 import re
 
-_list = []
 _next = '/search?q={"source"%3A"treaties"}&pageSize=250'
 #initializing first page and the empty list
 n = 0
@@ -53,11 +52,11 @@ while page_exists:
 			excuse = text_page.find('p').text.encode('ascii', 'replace')
 			text = excuse
 		_dict['text'] = text
-		_list.append(_dict)
+		with open(short_title+'.json','w') as f:
+			json.dump(_dict,f)
 		print
 	del soup
 	del page
 
-with open('treaties.json','w') as f:
-	json.dump(_list,f)
+
 
