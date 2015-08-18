@@ -30,11 +30,13 @@ while page_exists:
 		plain = treaty_page.find_all('ul', class_='plain' )
 		topic = plain[len(plain)-1].text.encode('ascii', 'replace')
 		title = plain[0].text.encode('ascii', 'replace')
+		short_title = element.find('h2').text.encode('ascii', 'replace')
 		_dict = {}
 		#extracted the topic and the tile
 		_dict['topic'] = topic[1:len(topic)-1]
 		_dict['title'] = title
-
+		_dict['short_title'] = short_title
+		print short_title
 		text_link = treaty_page.find('ul', class_='tabs_links' ).find_all('a')[2].get('href')
 		opened_link = urllib2.urlopen(text_link)
 		text_page = BeautifulSoup(opened_link.read())
