@@ -43,7 +43,9 @@ while page_exists:
 		print "Opening text link: " + text_link
 		_text = text_page.find('pre')
 		congress = text_page.find('h1').find('span').text
-		nr = re.findall(r'\d+', congress)[0]
+		nrs = re.findall(r'\d+', congress)
+		nr = nrs[0]
+		_id = str(nr)+"-"+str(nrs[1])
 		_dict['congress'] = nr
 		print "Congress version: " + nr
 		if not not _text:
@@ -52,7 +54,7 @@ while page_exists:
 			excuse = text_page.find('p').text.encode('ascii', 'replace')
 			text = excuse
 		_dict['text'] = text
-		with open(short_title+'.json','w') as f:
+		with open(_id+'.json','w') as f:
 			json.dump(_dict,f)
 		print
 	del soup
